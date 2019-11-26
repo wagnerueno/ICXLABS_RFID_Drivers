@@ -1,0 +1,14 @@
+[Unit]
+Description="RFID First Model API Service"
+
+[Service]
+ExecStart=/usr/bin/php -S 0.0.0.0:81 rfid_ms.php
+WorkingDirectory=/opt/rfid
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=RFID-API
+
+[Install]
+WantedBy=multi-user.target

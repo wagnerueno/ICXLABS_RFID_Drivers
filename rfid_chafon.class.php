@@ -40,7 +40,8 @@ class rfid{
         if ($this->autoOpen()){ //v1.1 deteção automática de portas
             echo "Device found at $this->serialPort\n";
         } else {
-            trigger_error("RFID Reader not found!", E_USER_ERROR);
+            echo "RFID Reader not found!";
+            die(1);
         };
         $this->relevantTags = array();
     }
@@ -152,7 +153,7 @@ class rfid{
         }
         $rtags = $ntags; //rtags é o contador de tags restantes para a leitura, começa pela quantidade de tags e decresce a cada interação
         $shift = 2; //o tamanho da tag fica sempre no endereço 2
-        echo "----- Nova leitura -----\n";
+        //echo "----- Nova leitura -----\n";
         while ($rtags--){
             $tagSize = ord($data[$shift]);
             $tag = substr($data, $shift+1, $tagSize);
@@ -160,10 +161,10 @@ class rfid{
             $time = time();
             $tagHex = bin2hex($tag);
             $tags[$tagHex] = array('tag'=>$tagHex, 'rssi'=>$rssi, 'ts'=>$time);
-            echo "[".date("y/m/d H:i:s",$time)."] Tag:$tagHex | RSSI:$rssi | Timestamp:$time\n";
+            //echo "[".date("y/m/d H:i:s",$time)."] Tag:$tagHex | RSSI:$rssi | Timestamp:$time\n";
             $shift += $tagSize+2;
         }
-        echo "------------------------\n";
+        //echo "------------------------\n";
         $this->updateRelevant($tags);
         if ($this->cb_CMD_INVENTORY) ($this->cb_CMD_INVENTORY)($this, $tags);
     }
