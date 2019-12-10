@@ -1,0 +1,14 @@
+[Unit]
+Description="RFID Chafon Reader Service"
+
+[Service]
+ExecStart=/usr/bin/php rfid_ch_reader.php
+WorkingDirectory=/opt/rfid
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=RFID-Ch-Reader
+
+[Install]
+WantedBy=multi-user.target

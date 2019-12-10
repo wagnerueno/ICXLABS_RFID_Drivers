@@ -1,0 +1,14 @@
+[Unit]
+Description="RFID First Model Reader Service"
+
+[Service]
+ExecStart=/usr/bin/php rfid_first_reader.php
+WorkingDirectory=/opt/rfid
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=RFID-First-Reader
+
+[Install]
+WantedBy=multi-user.target

@@ -1,9 +1,11 @@
 <?php
 
-//Usage: php rfid_reader.php /var/www/html/rfid_uhf/json.txt
+//Usage: systemctl start rfid-reader.service
+
+$JSON_FILE = "/usr/share/rfid/tags.json";
 
 require("rfid_first.class.php");
-$outputFile = $argv[1];
+$outputFile = $JSON_FILE;
 $rfid = new rfid_fi();
 $rfid->cb_CMD_INVENTORY = "inventory"; //associa callback que é chamada a cada comando de leitura
 $rfid->cb_relevantTags = "relevant"; //associa callback que é chamada a cada alteração nos RFIDs presentes

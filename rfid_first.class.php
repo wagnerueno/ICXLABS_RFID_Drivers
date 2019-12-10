@@ -37,7 +37,8 @@ class rfid_fi{
         if ($this->autoOpen()){ //v1.1 deteção automática de portas
             echo "Device found at $this->serialPort\n";
         } else {
-            trigger_error("RFID Reader not found!", E_USER_ERROR);
+            echo "RFID Reader not found!";
+            die(1);
         };
         $this->relevantTags = array();
     }
@@ -147,7 +148,7 @@ class rfid_fi{
             $time = time();
             $tagHex = bin2hex($EPC);
             $tags[$tagHex] = array('tag'=>$tagHex, 'rssi'=>$rssi, 'ts'=>$time);
-            echo "[".date("y/m/d H:i:s",$time)."] Tag:$tagHex | RSSI:$rssi | Timestamp:$time\n";
+            //echo "[".date("y/m/d H:i:s",$time)."] Tag:$tagHex | RSSI:$rssi | Timestamp:$time\n";
         }
         $this->updateRelevant($tags);
         if ($this->cb_CMD_INVENTORY) ($this->cb_CMD_INVENTORY)($this, $tags);
