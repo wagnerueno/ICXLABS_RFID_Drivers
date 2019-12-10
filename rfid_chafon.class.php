@@ -141,12 +141,12 @@ class rfid{
     }
     function splitBuffer(){
         for($i=0; $i<10; $i++){ //faz loop por até 10x para tratar as mensagens. Isso permite o tratamento de 10 mensagens antes de escapar da função
+            if (!$this->buffer) break; //sai do loop se as mensagens acabaram
+            if (strlen($this->buffer)<ord($this->buffer[0])) break; //sai do loop se o tamanho do buffer é mensor do que o comprimento da próxima mensagem (mensagem incompleta)
             $len = ord($this->buffer[0]);
             $message = substr($this->buffer, 0, $len+1);
             $this->parseMessage($message);
             $this->buffer = substr($this->buffer, $len+1);
-            if (!$this->buffer) break; //sai do loop se as mensagens acabaram
-            if (strlen($this->buffer)<ord($this->buffer[0])) break; //sai do loop se o tamanho do buffer é mensor do que o comprimento da próxima mensagem (mensagem incompleta)
         }
     }
     function parseMessage($msg){

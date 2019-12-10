@@ -2,7 +2,7 @@
 Description="RFID Chafon Reader Service"
 
 [Service]
-ExecStart=/usr/bin/php rfid_reader.php
+ExecStart=/usr/bin/php rfid_ch_reader.php
 WorkingDirectory=/opt/rfid
 Restart=always
 RestartSec=5
